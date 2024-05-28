@@ -19,8 +19,9 @@
         <p><strong>ISBN:</strong> {{ isbn }}</p>
         <p><strong>Género(s):</strong> {{ generos }}</p>
         <p><strong>Clasificación de edad:</strong> {{ edad_recomendada }}</p>
+        <p><strong>Precio en físico:</strong> {{ precio_fisico }}</p>
+        <p><strong>Precio en Kindle:</strong> {{ precio_kindle }}</p>
         <a href="{{ url_for('buscar_libros') }}" class="volver">Volver a la búsqueda</a>
     </div>
 </div>
 {% endblock %}
-    
