@@ -73,12 +73,8 @@ def clasificar_edad(maturity_rating):
 def index():
     return render_template('index.html')
 
-@app.route('/buscar_libros')
+@app.route('/buscar_libros', methods=['GET', 'POST'])
 def buscar_libros():
-    return render_template('buscar_libros.html', ultimos_libros=ultimos_libros, ultimos_autores=ultimos_autores)
-
-@app.route('/buscar', methods=['GET', 'POST'])
-def buscar():
     if request.method == 'POST':
         query = request.form['query']
         tipo_busqueda = request.form.get('tipo_busqueda', 'titulo')
@@ -98,7 +94,7 @@ def buscar():
             agregar_a_ultimos_autores(query)
             return redirect(url_for('detalle_autor', autor=query))
     
-    return render_template('index.html')
+    return render_template('buscar_libros.html', ultimos_libros=ultimos_libros, ultimos_autores=ultimos_autores)
 
 @app.route('/detalle_autor/<autor>')
 def detalle_autor(autor):
