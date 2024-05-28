@@ -88,7 +88,7 @@ def buscar():
             datos_titulo = buscar_libros_por_titulo(API_KEY, query)
             if "items" in datos_titulo:
                 libros_titulo = datos_titulo["items"]
-                agregar_a_ultimos_libros(libros_titulo[:5])  # Agregar los primeros 5 resultados a la lista de últimos libros buscados
+                agregar_a_ultimos_libros(libros_titulo[:5])  
                 if len(libros_titulo) == 1:
                     return render_template('detalle_libro.html', libro=libros_titulo[0])
                 return render_template('lista_libros.html', libros=libros_titulo, query=query, tipo_busqueda='titulo')
@@ -122,4 +122,5 @@ def detalle_libro(id):
         return render_template('index.html', error=error)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
