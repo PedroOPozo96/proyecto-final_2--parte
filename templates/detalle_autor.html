@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="detalle-autor-container">
+    <h2>{{ autor }}</h2>
+    {% if imagen %}
+    <img src="{{ imagen }}" alt="{{ autor }}">
+    {% endif %}
+    <p>{{ descripcion }}</p>
+    <h3>Te recomendamos algunos libros de {{ autor }}</h3>
+    <div class="libros-container">
+        {% for libro in libros %}
+        <div class="libro-item">
+            <a href="{{ url_for('detalle_libro', id=libro['id']) }}">
+                {% if libro['volumeInfo'].get('imageLinks') %}
+                <img src="{{ libro['volumeInfo']['imageLinks']['thumbnail'] }}" alt="{{ libro['volumeInfo']['title'] }}">
+                {% else %}
+                <div class="fallback-image">
+                    <span>No hay imagen disponible</span>
+                </div>
+                {% endif %}
+                <div class="libro-info">
+                    <h4>{{ libro['volumeInfo']['title'] }}</h4>
+                    <p>{{ libro['volumeInfo'].authors | join(', ') }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('buscar_libros') }}" class="volver">Volver a buscar más libros</a>
+</div>
+{% endblock %}

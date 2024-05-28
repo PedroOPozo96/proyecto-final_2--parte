@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-text">
+    <h2>¡Búsqueda de libros!</h2>
+    <form action="{{ url_for('buscar') }}" method="post">
+        <input type="text" id="query" name="query" placeholder="Busca por título o autor..." required>
+        <select name="tipo_busqueda" id="tipo_busqueda">
+            <option value="titulo">Título</option>
+            <option value="autor">Autor</option>
+        </select>
+        <button type="submit">¡Vamos a buscar!</button>
+    </form>
+</div>
+
+<div class="ultimos-buscados">
+    <h2>¡Los últimos libros buscados!</h2>
+    <div class="libros-container">
+        {% for libro in ultimos_libros %}
+        <div class="libro-item">
+            <a href="{{ url_for('detalle_libro', id=libro['id']) }}">
+                {% if libro['volumeInfo'].get('imageLinks') %}
+                <img src="{{ libro['volumeInfo']['imageLinks']['thumbnail'] }}" alt="{{ libro['volumeInfo']['title'] }}">
+                {% else %}
+                <div class="fallback-image">
+                    <span>¡Sin imagen!</span>
+                </div>
+                {% endif %}
+                <div class="libro-info">
+                    <h4>{{ libro['volumeInfo']['title'] }}</h4>
+                    <p>{{ libro['volumeInfo'].authors | join(', ') }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="ultimos-buscados">
+    <h2>¡Los últimos autores buscados!</h2>
+    <div class="autores-container">
+        {% for autor in ultimos_autores %}
+        <div class="autor-item">
+            <a href="{{ url_for('detalle_autor', autor=autor) }}">
+                <div class="autor-info">
+                    <h4>{{ autor }}</h4>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
