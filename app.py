@@ -121,6 +121,28 @@ def detalle_libro(id):
         error = response.json()
         return render_template('index.html', error=error)
 
+@app.route('/buscar', methods=['POST'])
+def buscar():
+    query = request.form['query']
+    tipo_busqueda = request.form.get('tipo_busqueda', 'titulo')
+    
+    if tipo_busqueda == 'titulo':
+        datos_titulo = buscar_libros_por_titulo(API_KEY, query)
+        if "items" in datos_titulo:
+            libros_titulo = [libro for libro in datos_titulo["items"] if "imageLinks" in libro["volumeInfo"]]
+            agregar_a_ultimos_libros(libros_titulo[:5])
+            if len(libros_titulo) == 1:
+                libro = libros_titulo[0]
+                libro['volumeInfo']['description'] = eliminar_etiquetas_html(libro['volumeInfo'].get('description', ''))
+                return render_template('detalle_libro.html', libro=libro)
+            return render_template('lista_libros.html', libros=libros_titulo, query=query, tipo_busqueda='titulo')
+    
+    elif tipo_busqueda == 'autor':
+        agregar_a_ultimos_autores(query)
+        return redirect(url_for('detalle_autor', autor=query))
+    
+    return render_template('buscar_libros.html', ultimos_libros=ultimos_libros, ultimos_autores=ultimos_autores)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
