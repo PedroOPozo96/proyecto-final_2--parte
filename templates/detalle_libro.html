@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="detalle-libro-container">
+    <div class="libro-imagen">
+        {% if libro['volumeInfo'].get('imageLinks') %}
+        <img src="{{ libro['volumeInfo']['imageLinks']['thumbnail'] }}" alt="{{ libro['volumeInfo']['title'] }}">
+        {% else %}
+        <div class="fallback-image">
+            <span>Sin imagen</span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="libro-detalles">
+        <h2>{{ libro['volumeInfo']['title'] }}</h2>
+        <h3>{{ libro['volumeInfo'].get('authors', ['Autor desconocido']) | join(', ') }}</h3>
+        <p><strong>Fecha de publicación:</strong> {{ libro['volumeInfo'].get('publishedDate', 'No disponible') }}</p>
+        <p>{{ libro['volumeInfo'].get('description', 'No se encontró una descripción para este libro.') }}</p>
+        <p><strong>ISBN:</strong> {{ isbn }}</p>
+        <p><strong>Género(s):</strong> {{ generos }}</p>
+        <p><strong>Clasificación de edad:</strong> {{ edad_recomendada }}</p>
+        <p><strong>Precio en físico:</strong> {{ precio_fisico }}</p>
+        <p><strong>Precio en Kindle:</strong> {{ precio_kindle }}</p>
+        <a href="{{ url_for('buscar_libros') }}" class="volver">Volver a la búsqueda</a>
+    </div>
+</div>
+{% endblock %}

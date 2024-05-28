@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="resultados-busqueda">
+    <h2>Resultados de búsqueda: "{{ query }}"</h2>
+    <div class="libros-container">
+        {% for libro in libros %}
+            {% if libro['volumeInfo'].get('imageLinks') %}
+            <div class="libro-item">
+                <a href="{{ url_for('detalle_libro', id=libro['id']) }}">
+                    <img src="{{ libro['volumeInfo']['imageLinks']['thumbnail'] }}" alt="{{ libro['volumeInfo']['title'] }}">
+                    <div class="libro-info">
+                        <h4>{{ libro['volumeInfo']['title'] }}</h4>
+                        <p>{{ libro['volumeInfo'].authors | join(', ') }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

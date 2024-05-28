@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-text">
+    <h2>Descubre la Biblioteca Azul</h2>
+    <p>Bienvenido a un universo lleno de historias apasionantes, aventuras inolvidables y personajes fascinantes. Nuestra Biblioteca Azul es el destino perfecto para los amantes de los libros, los entusiastas del manga y los fanáticos de los cómics.</p>
+    <p>Explora nuestro catálogo, donde encontrarás una amplia variedad de obras, desde los clásicos de la literatura, los mangas más aclamados, hasta los cómics más innovadores. Filtra tus búsquedas por género, autor o popularidad para encontrar exactamente lo que estás buscando.</p>
+    <p>Disfruta de reseñas detalladas, opiniones de otros lectores y vistas previas de las obras para tomar la mejor decisión. Únete a nuestra comunidad y comparte tu pasión por la lectura. ¡Tu próxima historia favorita te está esperando en la Biblioteca Azul!</p>
+    <a href="{{ url_for('buscar_libros') }}" class="explorar-btn">Explorar Libros</a>
+</div>
+{% endblock %}
