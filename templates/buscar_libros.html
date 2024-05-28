@@ -2,19 +2,19 @@
 
 {% block content %}
 <div class="welcome-text">
-    <h2>¡Búsqueda de libros!</h2>
+    <h2>Buscar Libros</h2>
     <form action="{{ url_for('buscar') }}" method="post">
-        <input type="text" id="query" name="query" placeholder="Busca por título o autor..." required>
+        <input type="text" id="query" name="query" placeholder="Buscar por título o autor..." required>
         <select name="tipo_busqueda" id="tipo_busqueda">
             <option value="titulo">Título</option>
             <option value="autor">Autor</option>
         </select>
-        <button type="submit">¡Vamos a buscar!</button>
+        <button type="submit">Buscar</button>
     </form>
 </div>
 
 <div class="ultimos-buscados">
-    <h2>¡Los últimos libros buscados!</h2>
+    <h2>Últimos libros buscados</h2>
     <div class="libros-container">
         {% for libro in ultimos_libros %}
         <div class="libro-item">
@@ -23,7 +23,7 @@
                 <img src="{{ libro['volumeInfo']['imageLinks']['thumbnail'] }}" alt="{{ libro['volumeInfo']['title'] }}">
                 {% else %}
                 <div class="fallback-image">
-                    <span>¡Sin imagen!</span>
+                    <span>Sin imagen</span>
                 </div>
                 {% endif %}
                 <div class="libro-info">
@@ -37,7 +37,7 @@
 </div>
 
 <div class="ultimos-buscados">
-    <h2>¡Los últimos autores buscados!</h2>
+    <h2>Últimos autores buscados</h2>
     <div class="autores-container">
         {% for autor in ultimos_autores %}
         <div class="autor-item">
