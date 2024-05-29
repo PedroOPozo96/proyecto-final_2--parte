@@ -8,8 +8,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-API_KEY = os.getenv('GOOGLE_BOOKS_API_KEY')
-
 ultimos_libros = []
 ultimos_autores = []
 
